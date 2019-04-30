@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="backgroundcolor">#fcfcfc</color>
+    <color name="cardbackground">#ffffff</color>
+    <color name="textcolor">#808080</color>
+    <color name="tintcolor">#ffffff</color>
+    <color name="buttoncolor">#2196F3</color>
+
+    <color name="white">#ffffff</color>
+    <color name="orange">#eaad43</color>
+    <color name="green">#A9F74C</color>
+    <color name="bluedark">#2f333f</color>
+    <color name="bluelight">#49acd5</color>
+    <color name="cardbackgrounddark">#424242</color>
+    
+    <color name="transparent">#05FFFFFF</color>
+</resources>

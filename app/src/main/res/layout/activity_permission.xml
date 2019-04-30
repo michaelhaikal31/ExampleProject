@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.Permission">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="32dp"
+
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Switch
+            android:id="@+id/switch_fingerprint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_fingerprint_black_24dp"
+            android:drawablePadding="@dimen/activity_margin"
+            android:fallbackLineSpacing="true"
+            android:text="Permission Fingerprint" />
+
+        <Switch
+            android:id="@+id/switch_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_perm_contact_calendar_black_24dp"
+            android:drawableLeft="@drawable/ic_launcher_foreground"
+            android:drawablePadding="@dimen/activity_margin"
+            android:text="@string/text_permission_contact" />
+
+        <Switch
+            android:id="@+id/switch_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_camera_black_24dp"
+            android:drawablePadding="@dimen/activity_margin"
+            android:text="@string/text_permission_camera" />
+
+        <Switch
+            android:id="@+id/switch_storage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_storage_black_24dp"
+            android:drawablePadding="@dimen/activity_margin"
+            android:text="@string/text_permission_storage" />
+        <TextView
+            android:id="@+id/tv_fingerprint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="true"
+            android:text="null"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

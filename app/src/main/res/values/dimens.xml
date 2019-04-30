@@ -1,0 +1,8 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="activity_margin">16dp</dimen>
+    <dimen name="bottomsheet_height">56dp</dimen>
+    <dimen name="layout_padding">16dp</dimen>
+    <dimen name="cardCornerRadius">5dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+</resources>

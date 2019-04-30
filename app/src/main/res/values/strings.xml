@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Android Data DataBinding</string>
+    <string name="action_settings">Settings</string>
+    <string name="FastAdapter">Fast Adapter</string>
+    <string name="text_permission_camera">Permission Camera</string>
+    <string name="text_permission_contact">Permission Contact</string>
+    <string name="text_permission_storage">Permission Storage</string>
+
+    <string name="key">eyJzY29wZSI6WyJBTEwiXSwicGxhdGZvcm0iOlsiaU9TIiwiQW5kcm9pZCIsIldpbmRvd3MiXSwidmFsaWQiOiIyMDE5LTA1LTA5IiwibWFqb3JWZXJzaW9uIjozLCJtYXhEYXlzTm90UmVwb3J0ZWQiOjUsInNob3dXYXRlcm1hcmsiOnRydWUsInBpbmdSZXBvcnRpbmciOnRydWUsImRlYnVnUmVwb3J0aW5nIjoib3B0LW91dCIsInRvbGVyYW5jZURheXMiOjUsInNob3dQb3BVcEFmdGVyRXhwaXJ5Ijp0cnVlLCJpb3NJZGVudGlmaWVyIjpbImNvbS5leGFtcGxlLmFuZHJvaWRkYXRhZGF0YWJpbmRpbmciXSwiYW5kcm9pZElkZW50aWZpZXIiOlsiY29tLmV4YW1wbGUuYW5kcm9pZGRhdGFkYXRhYmluZGluZyJdLCJ3aW5kb3dzSWRlbnRpZmllciI6WyJjb20uZXhhbXBsZS5hbmRyb2lkZGF0YWRhdGFiaW5kaW5nIl19ClJBaGhuYk5BakhkSkg0KzVEOGtTT1BBSkg1a00xUnpSWnJyYUsyeUtDNzBOcFA2MnJJV0tEUFZLMXJjM3RneWExYVczOTZXVFpoc2ZWNlA3cU1IMFQ5OGd1SzdQYTNuRk1CcEptY0RXR0lTTXBOYzRRMmlIYmQyL1l4RmtveWRjWUQxSkdCdEpWTjhpajdmSHd6N2dqZVhUVXFrTG1rVVZsdDVPZVVOdEhuSndXK0FQVXRYcjRJL1NmV2MzMVhtc29nSllLWW5BcFRzK0pFT21NcUd4VkE5UU0vZy9BUzYrdVkyUmtZMXhxcE1GU3ZJYXd4Q3g1VEZsMDM5ZmIrdDNQaXZlSDBuMmROVXV6TUNDaFVpeS82enpQNEsyWW90SmFTRkQxV0wxV1FlRWJpaGsvWUhFa1AyaFBHU0pEZWloS0x5SEFCU1JvTElBQm1XcFZMdGY0Zz09</string>
+
+    <string name="desc_Fast_Adapter">Demo program with Fast Adapater and some animation</string>
+    <string name="desc_Permission">Demo program with permission divace android</string>
+    <string name="desc_Android_Character_Recognition">Demo program Acr to scan paper</string>
+    <string name="desc_Ocr_Any_Line">Demo program Camera to Scan text paper</string>
+    <string name="desc_ML_kit">Demo program from firebase to scan text paper</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="iban_reading_result">IBAN</string>
+    <string name="not_available">Not Availabel</string>
+    <string name="capture">CAPTURE</string>
+    <string name="motto">Happy Codding</string>
+    <string name="version_app">Version App</string>
+
+    <string-array name="dropdown_fastadapter">
+        <item>Right</item>
+        <item>Left</item>
+        <item>Bottom</item>
+    </string-array>
+</resources>
