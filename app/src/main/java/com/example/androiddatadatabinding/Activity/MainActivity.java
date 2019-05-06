@@ -40,20 +40,29 @@ import java.io.InputStreamReader;
 import info.androidhive.fontawesome.FontDrawable;
 
 public class MainActivity extends AppCompatActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback{
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = "MainActivity";
     private static final int PERMISSION_REQUESTS = 1;
     Dialog myDialog;
 
     private static final Class<?>[] CLASSES = new Class<?>[]{
-            FastAdapter.class, Permission.class,
-            AndroidCharacterRecognition.class, MLkit.class, SavePhotoRecord.class, AnyLineIBAN.class, SelfieKtp.class
+            FastAdapter.class,
+            Permission.class,
+            AndroidCharacterRecognition.class,
+            MLkit.class,
+            SavePhotoRecord.class,
+            AnyLineIBAN.class,
+            SelfieKtp.class
     };
     private static final int[] DESCRIPTION_IDS = new int[]{
-            R.string.desc_Fast_Adapter, R.string.desc_Permission,
-            R.string.desc_Android_Character_Recognition, R.string.desc_ML_kit,
-            R.string.desc_ML_kit, R.string.desc_ML_kit,R.string.desc_ML_kit,
+            R.string.desc_Fast_Adapter,
+            R.string.desc_Permission,
+            R.string.desc_Android_Character_Recognition,
+            R.string.desc_ML_kit,
+            R.string.desc_ML_kit,
+            R.string.desc_ML_kit,
+            R.string.desc_ML_kit,
     };
 
     private SharedPref sharedPref;
@@ -62,9 +71,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         sharedPref = new SharedPref(this);
-        if (sharedPref.loadNightModeState() == true){
+        if (sharedPref.loadNightModeState() == true) {
             getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_night);
-        }else {
+        } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_light);
         }
@@ -97,21 +106,23 @@ public class MainActivity extends AppCompatActivity
         }
         return false;
     }
-    private static boolean checkRootMethod3(){
+
+    private static boolean checkRootMethod3() {
         Process process = null;
         try {
-            process = Runtime.getRuntime().exec(new String[] {"/system/xbin/which", "su"});
+            process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
             BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            if(in.readLine() !=  null)
+            if (in.readLine() != null)
                 return true;
             return false;
         } catch (Throwable t) {
             return false;
-        }finally {
-            if(process != null)process.destroy();
+        } finally {
+            if (process != null) process.destroy();
         }
 
     }
+
     private void checkRootDevice() {
         if (!isDeviceRooted() == true) {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -138,43 +149,53 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i;
-                switch (position){
-                    case 0 :  i = new Intent(MainActivity.this,FastAdapter.class);
-                            startActivity(i);
-                            break;
-                    case 1 :   i = new Intent(MainActivity.this, Permission.class);
+                switch (position) {
+                    case 0:
+                        i = new Intent(MainActivity.this, FastAdapter.class);
                         startActivity(i);
                         break;
-                    case 2 :   i = new Intent(MainActivity.this, AndroidCharacterRecognition.class);
+                    case 1:
+                        i = new Intent(MainActivity.this, Permission.class);
                         startActivity(i);
                         break;
-                    case 3 :  i = new Intent(MainActivity.this,MLkit.class);
+                    case 2:
+                        i = new Intent(MainActivity.this, AndroidCharacterRecognition.class);
                         startActivity(i);
                         break;
-                    case 4 :   i = new Intent(MainActivity.this, SavePhotoRecord.class);
+                    case 3:
+                        i = new Intent(MainActivity.this, MLkit.class);
                         startActivity(i);
                         break;
-                    case 5 :  checkPermissions();
+                    case 4:
+                        i = new Intent(MainActivity.this, SavePhotoRecord.class);
+                        startActivity(i);
+                        break;
+                    case 5:
+                        checkPermissions();
 
                         break;
-                    case 6: i = new Intent(MainActivity.this, SelfieKtp.class);
+                    case 6:
+                        i = new Intent(MainActivity.this, SelfieKtp.class);
                         startActivity(i);
+                        break;
+                    default:
                         break;
                 }
 
             }
         });
     }
+
     void checkPermissions() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA},
-                   100);
+                    100);
 
-        }else {
-            Intent  i = new Intent(MainActivity.this,AnyLineIBAN.class);
+        } else {
+            Intent i = new Intent(MainActivity.this, AnyLineIBAN.class);
             startActivity(i);
         }
     }
@@ -182,10 +203,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == 100){
+        if (requestCode == 100) {
             if (grantResults.length > 0
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Intent  i = new Intent(MainActivity.this,AnyLineIBAN.class);
+                Intent i = new Intent(MainActivity.this, AnyLineIBAN.class);
                 startActivity(i);
             } else {
                 Toast.makeText(this, "bnla", Toast.LENGTH_LONG).show();
@@ -194,6 +215,7 @@ public class MainActivity extends AppCompatActivity
         }
 
     }
+
     private void setButtonFloating() {
         myDialog = new Dialog(this);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -240,12 +262,12 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-   /* @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Class<?> clicked = CLASSES[position];
-        startActivity(new Intent(this, clicked));
-    }
-*/
+    /* @Override
+     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+         Class<?> clicked = CLASSES[position];
+         startActivity(new Intent(this, clicked));
+     }
+ */
     public static class MyArrayAdapter extends ArrayAdapter<Class<?>> {
 
         private final Context context;

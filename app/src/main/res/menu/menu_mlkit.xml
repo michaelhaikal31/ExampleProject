@@ -8,4 +8,10 @@
         android:title="camera"
         android:icon="@drawable/ic_refresh_black_24dp"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_capture"
+        android:orderInCategory="100"
+        android:title="camera"
+        android:icon="@drawable/ic_camera_black_24dp"
+        app:showAsAction="ifRoom" />
 </menu>

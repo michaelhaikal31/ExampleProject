@@ -23,8 +23,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.SelfieKtp"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:screenOrientation="portrait"></activity>
 
         <activity android:name=".Activity.SettingActivity" />
         <activity
