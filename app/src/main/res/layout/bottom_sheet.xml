@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:background="@color/backgroundcolor"
     android:orientation="vertical"
     android:padding="@dimen/activity_margin"
@@ -44,4 +44,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/photoprofile"
         android:layout_gravity="center_vertical"/>
+    <ImageView
+        android:id="@+id/imagefull_ktp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/photoprofile"
+        android:layout_gravity="center_vertical"/>
+
 </LinearLayout>

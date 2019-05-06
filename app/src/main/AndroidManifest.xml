@@ -21,8 +21,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SettingActivity"></activity>
-        <activity android:name=".Activity.AnyLineIBAN" />
+        <activity android:name=".Activity.SelfieKtp"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".Activity.SettingActivity" />
+        <activity
+            android:name=".Activity.AnyLineIBAN"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.SavePhotoRecord" />
         <activity android:name=".Activity.MLkit" />
 

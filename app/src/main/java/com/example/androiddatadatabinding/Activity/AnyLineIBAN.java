@@ -1,14 +1,18 @@
 package com.example.androiddatadatabinding.Activity;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.ActionBar;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import at.nineyards.anyline.AnylineDebugListener;
 import at.nineyards.anyline.core.RunFailure;
 import at.nineyards.anyline.models.AnylineImage;
 import at.nineyards.anyline.modules.ocr.AnylineOcrConfig;
+import butterknife.ButterKnife;
 import io.anyline.plugin.ScanResultListener;
 import io.anyline.plugin.ocr.OcrScanResult;
 import io.anyline.plugin.ocr.OcrScanViewPlugin;
@@ -31,121 +36,145 @@ import io.anyline.view.ScanView;
 
 public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListener {
     private static final String TAG = AnyLineIBAN.class.getSimpleName();
-    private ScanView scanView;
-    private TextView textView_result;
+    int MY_PERMISSIONS_REQUEST_CAMERA = 1;
+    boolean flagPermissions = false;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.CAMERA
+    };
     private LinearLayout linearLayout;
-    private ConstraintLayout constraintLayout;
-    private ImageView imageView;
+
+    private ScanView scanView;
+
+    private TextView textView_result;
+
+    private ImageView imageNomorKtp;
+
+    private ImageView imageFullKtp, ImageBorder;
+
     private View view;
+    private ConstraintLayout constraintLayout;
+
+    private Context mContext ;
+    BottomSheetDialog mBottomSheetDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        changeStatusBar();
+        ButterKnife.bind(this);
         setContentView(R.layout.activity_any_line_iban);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowHomeEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(TAG);
-        }
-
         linearLayout = findViewById(R.id.bottom_sheet);
-        linearLayout.setVisibility(LinearLayout.INVISIBLE);
-
-        textView_result = findViewById(R.id.tv_ktp);
-        imageView = findViewById(R.id.image_ktp);
+        scanView = findViewById(R.id.scanview);
+       /* textView_result = findViewById(R.id.tv_ktp);
+        imageNomorKtp = findViewById(R.id.image_ktp);
+        imageFullKtp = findViewById(R.id.imagefull_ktp);*/
+        ImageBorder = findViewById(R.id.borderImageKtp);
         view = findViewById(R.id.border_anyline);
         constraintLayout = findViewById(R.id.constraintLayoutktp);
-        init();
+        mBottomSheetDialog = new BottomSheetDialog(this);
 
+        View sheetView = this.getLayoutInflater().inflate(R.layout.bottom_sheet, null);
+        imageNomorKtp =sheetView.findViewById(R.id.image_ktp);
+        imageFullKtp = sheetView.findViewById(R.id.imagefull_ktp);
+        textView_result =sheetView.findViewById(R.id.tv_ktp);
+        mBottomSheetDialog.setContentView(sheetView);
+
+//        linearLayout.setVisibility(LinearLayout.INVISIBLE);
+        init();
 
     }
 
-    void init() {
-        scanView = (ScanView) findViewById(R.id.scanview);
+    private void changeStatusBar() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window window = getWindow();
+            requestWindowFeature(Window.FEATURE_NO_TITLE);
+            window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
+    }
 
+    void init() {
         AnylineOcrConfig anylineOcrConfig = new AnylineOcrConfig();
         anylineOcrConfig.setLanguages("TrainedModels/USNr.any");
         anylineOcrConfig.setCharWhitelist("1234567890");
-        anylineOcrConfig.setScanMode(AnylineOcrConfig.ScanMode.LINE);
-       /* anylineOcrConfig.setMinCharHeight(25);
-        anylineOcrConfig.setMaxCharHeight(85);
-        anylineOcrConfig.setMinConfidence(80);
-       */ anylineOcrConfig.setValidationRegex("^-?\\d{16}$");
-
+        anylineOcrConfig.setScanMode(AnylineOcrConfig.ScanMode.AUTO);
+        anylineOcrConfig.setValidationRegex("^-?\\d{16}$");
         scanView.setScanConfig("iban_view_config.json");
-
-        OcrScanViewPlugin scanViewPlugin = new OcrScanViewPlugin(getApplicationContext(),getString(R.string.anyline_license_key), anylineOcrConfig, scanView.getScanViewPluginConfig(), "OCR" );
+        OcrScanViewPlugin scanViewPlugin = new OcrScanViewPlugin(getApplicationContext(), getString(R.string.anyline_license_key), anylineOcrConfig, scanView.getScanViewPluginConfig(), "OCR");
         scanView.setScanViewPlugin(scanViewPlugin);
-
         scanViewPlugin.addScanResultListener(new ScanResultListener<OcrScanResult>() {
             @Override
             public void onResult(OcrScanResult result) {
-                String ibanResult = result.getResult();
-                String path = setupImagePath(result.getFullImage());
+                Bitmap bitmapNomorKtp = getBitmap(setupImagePath(result.getThresholdedImage()));
+                Bitmap bitmapFullKtp = getBitmap(setupImagePath(result.getFullImage()));
 
-                FileInputStream fi = null;
-                try {
-                    fi = new FileInputStream(path);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                Bitmap bitmap = BitmapFactory.decodeStream(fi);
-                bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), false);
-
-                float koefX = (float)bitmap.getWidth() / (float)constraintLayout.getWidth();
-                float koefY = (float)bitmap.getHeight() / (float)constraintLayout.getHeight();
-
+                float koefX = (float) bitmapFullKtp.getWidth() / (float) constraintLayout.getWidth();
+                float koefY = (float) bitmapFullKtp.getHeight() / (float) constraintLayout.getHeight();
                 int x1 = view.getLeft();
                 int y1 = view.getTop();
                 int x2 = view.getWidth();
                 int y2 = view.getHeight();
-
                 int cropStartX = Math.round(x1 * koefX);
                 int cropStartY = Math.round(y1 * koefY);
                 int cropWidthX = Math.round(x2 * koefX);
                 int cropHeightY = Math.round(y2 * koefY);
-
-                if(cropStartX + cropWidthX <= bitmap.getWidth() && cropStartY + cropHeightY <= bitmap.getHeight()){
-                    bitmap = Bitmap.createBitmap(bitmap, cropStartX, cropStartY, cropWidthX, cropHeightY);
+                if (cropStartX + cropWidthX <= bitmapFullKtp.getWidth() && cropStartY + cropHeightY <= bitmapFullKtp.getHeight()) {
+                    bitmapFullKtp = Bitmap.createBitmap(bitmapFullKtp, cropStartX, cropStartY, cropWidthX, cropHeightY);
                 }
-                imageView.setImageBitmap(bitmap);
-                /*String path = setupImagePath(result.getCutoutImage());
-                startScanResultIntent(getResources().getString(R.string.title_iban), getIbanResult(ibanResult), path);
+                /*Settingan ThresholdImage*/
+                /*Mat imageMat = new Mat();
+                Utils.bitmapToMat(bitmapFullKtp, imageMat);
+                Imgproc.cvtColor(imageMat, imageMat, Imgproc.COLOR_BGR2GRAY);
+                Imgproc.threshold(imageMat, imageMat, 120, 235, Imgproc.THRESH_BINARY);
+                Utils.matToBitmap(imageMat, bitmapFullKtp);*/
 
-                setupScanProcessView(ScanIbanActivity.this, result, getScanModule());*/
-                linearLayout.setVisibility(LinearLayout.VISIBLE);
+                imageNomorKtp.setImageBitmap(bitmapNomorKtp);
+                imageFullKtp.setImageBitmap(bitmapFullKtp);
+
+               /* linearLayout.setVisibility(LinearLayout.VISIBLE);
                 view.setVisibility(View.INVISIBLE);
+                ImageBorder.setVisibility(View.INVISIBLE);*/
                 textView_result.setText(result.getResult().toString().trim());
 
+                mBottomSheetDialog.show();
+                scanView.start();
             }
 
         });
-
         scanViewPlugin.setDebugListener(this);
     }
-    protected String setupImagePath(AnylineImage anylineImage){
-        String imagePath="";
+
+    private Bitmap getBitmap(String path) {
+        Bitmap bitmap = null;
+        try {
+            FileInputStream fi = new FileInputStream(path);
+            Bitmap bitmapImage = BitmapFactory.decodeStream(fi);
+            bitmap = Bitmap.createScaledBitmap(bitmapImage, bitmapImage.getWidth() * 2, bitmapImage.getHeight() * 2, false);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    protected String setupImagePath(AnylineImage anylineImage) {
+        String imagePath = "";
         Long time = System.currentTimeMillis();
         try {
-            if(this.getExternalFilesDir(null)!=null){
-                imagePath =
-                        this.getExternalFilesDir(null)
-                                .toString()+ "/results/" + "mrz_image" + time;
-            }else if(this.getFilesDir() != null){
-                imagePath = this.getFilesDir().toString()+ "/results/" + "mrz_image" + time;
+            if (this.getExternalFilesDir(null) != null) {
+                imagePath = this.getExternalFilesDir(null).toString() + "/results/" + "mrz_image" + time;
+            } else if (this.getFilesDir() != null) {
+                imagePath = this.getFilesDir().toString() + "/results/" + "mrz_image" + time;
             }
             File fullFile = new File(imagePath);
             //create the directory
             fullFile.mkdirs();
             anylineImage.save(fullFile, 100);
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return imagePath;
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -156,6 +185,7 @@ public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListen
     protected void onPause() {
         super.onPause();
         scanView.stop();
+        scanView.releaseCameraInBackground();
     }
 
     @Override
@@ -170,16 +200,16 @@ public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListen
                         AnylineDebugListener.BRIGHTNESS_VARIABLE_CLASS.isAssignableFrom(o.getClass()))) {
             switch (scanView.getBrightnessFeedBack()) {
                 case TOO_BRIGHT:
-                  //  Toast.makeText(getApplicationContext(), "Terlalu Terang", Toast.LENGTH_LONG).show();
+                    //  Toast.makeText(getApplicationContext(), "Terlalu Terang", Toast.LENGTH_LONG).show();
                     break;
                 case TOO_DARK:
-                   // Toast.makeText(getApplicationContext(), "Terlalu Gelap", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), "Terlalu Gelap", Toast.LENGTH_LONG).show();
                     break;
                 case OK:
-                   // Toast.makeText(getApplicationContext(), "Oke, Sesuai", Toast.LENGTH_LONG).show();
+                    // Toast.makeText(getApplicationContext(), "Oke, Sesuai", Toast.LENGTH_LONG).show();
                     break;
             }
-        } else if(AnylineDebugListener.DEVICE_SHAKE_WARNING_VARIABLE_NAME.equals(s)){
+        } else if (AnylineDebugListener.DEVICE_SHAKE_WARNING_VARIABLE_NAME.equals(s)) {
             System.out.println("asd to shake");
         }
     }
@@ -188,6 +218,7 @@ public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListen
     public void onRunSkipped(RunFailure runFailure) {
 
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -212,8 +243,10 @@ public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListen
         if (id == R.id.action_camera) {
             scanView.stop();
             scanView.start();
-            view.setVisibility(View.VISIBLE);
-            linearLayout.setVisibility(LinearLayout.INVISIBLE);
+            mBottomSheetDialog.dismiss();
+           /* view.setVisibility(View.VISIBLE);
+            ImageBorder.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(LinearLayout.INVISIBLE);*/
         }
 
         return super.onOptionsItemSelected(item);

@@ -16,5 +16,7 @@
     <color name="bluelight">#49acd5</color>
     <color name="cardbackgrounddark">#424242</color>
     
-    <color name="transparent">#05FFFFFF</color>
+    <color name="transparent">#1D202020</color>
+
+    <color name="transparent_">#C9020202</color>
 </resources>

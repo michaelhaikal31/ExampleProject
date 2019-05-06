@@ -42,8 +42,9 @@ public class Permission extends AppCompatActivity {
     private static final String TAG = Permission.class.getSimpleName().toString();
     private Button btnKontak, btnStorage;
     private final static int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 1122;
-    private Switch switch_camera, switch_contact, switch_storage,switch_fingerprint;
- TextView textViewfinger;
+    private Switch switch_camera, switch_contact, switch_storage, switch_fingerprint;
+    TextView textViewfinger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ActionBar actionBar = getSupportActionBar();
@@ -55,7 +56,7 @@ public class Permission extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permission);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        textViewfinger= (TextView) findViewById(R.id.tv_fingerprint);
+        textViewfinger = (TextView) findViewById(R.id.tv_fingerprint);
         /*SetSupportActionBar (toolbar);
         SupportActionBar.SetDisplayHomeAsUpEnabled (true);
         SupportActionBar.SetHomeButtonEnabled (true);
@@ -64,9 +65,9 @@ public class Permission extends AppCompatActivity {
         switch_fingerprint.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
+                if (isChecked) {
                     requestFingerPrintPermission();
-                }else {
+                } else {
                     return;
                 }
             }
@@ -109,9 +110,9 @@ public class Permission extends AppCompatActivity {
     }
 
     private void requestFingerPrintPermission() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             FingerprintManager fingerprintManager = (FingerprintManager) getSystemService(FINGERPRINT_SERVICE);
-            KeyguardManager keyguardManager = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+            KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
             if (!fingerprintManager.isHardwareDetected()) {
                 textViewfinger.setText("Fingerprint Scanner not Detected in Device");
                 Toast.makeText(getBaseContext(), "Fingerprint Scanner not Detected in Device", Toast.LENGTH_LONG).show();
@@ -119,32 +120,33 @@ public class Permission extends AppCompatActivity {
                 textViewfinger.setText("Permission not grantef to use FingerPrint ");
                 Toast.makeText(getBaseContext(),
                         "Permission not grantef to use FingerPrint ", Toast.LENGTH_LONG).show();
-            }else if(!keyguardManager.isKeyguardSecure()){
+            } else if (!keyguardManager.isKeyguardSecure()) {
                 textViewfinger.setText("Add Look to your Phone is Settings ");
 
                 Toast.makeText(getBaseContext(),
                         "Add Look to your Phone is Settings ", Toast.LENGTH_LONG).show();
-            }else if(!fingerprintManager.hasEnrolledFingerprints()){
+            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 textViewfinger.setText("You should add atles 1 Fingerprint to use this feature ");
 
                 Toast.makeText(getBaseContext(),
                         "You should add atles 1 Fingerprint to use this feature", Toast.LENGTH_LONG).show();
-            }else {
+            } else {
                 textViewfinger.setText("lace your Finger on Scnner to access ");
 
                 Toast.makeText(getBaseContext(),
                         "Place your Finger on Scnner to access ", Toast.LENGTH_LONG).show();
                 FingerprintHandler fingerprintHandler = new FingerprintHandler(getBaseContext());
-                fingerprintHandler.startAuth(fingerprintManager,null);
+                fingerprintHandler.startAuth(fingerprintManager, null);
             }
         }
-        }
+    }
+
     @SuppressLint("ResourceAsColor")
-    public void showtext(String textView1, boolean b){
+    public void showtext(String textView1, boolean b) {
         textViewfinger.setText(textView1);
-        if(b == false){
+        if (b == false) {
             textViewfinger.setTextColor(R.color.colorAccent);
-        }else {
+        } else {
             textViewfinger.setTextColor(R.color.bluelight);
         }
     }

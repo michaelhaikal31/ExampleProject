@@ -1,18 +1,20 @@
 package com.example.androiddatadatabinding.Activity;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.androiddatadatabinding.R;
 import com.example.androiddatadatabinding.Util.Constant;
@@ -37,7 +40,7 @@ import java.io.InputStreamReader;
 import info.androidhive.fontawesome.FontDrawable;
 
 public class MainActivity extends AppCompatActivity
-        implements ActivityCompat.OnRequestPermissionsResultCallback, AdapterView.OnItemClickListener {
+        implements ActivityCompat.OnRequestPermissionsResultCallback{
 
     private static final String TAG = "MainActivity";
     private static final int PERMISSION_REQUESTS = 1;
@@ -45,11 +48,12 @@ public class MainActivity extends AppCompatActivity
 
     private static final Class<?>[] CLASSES = new Class<?>[]{
             FastAdapter.class, Permission.class,
-            AndroidCharacterRecognition.class, MLkit.class, SavePhotoRecord.class, AnyLineIBAN.class,
+            AndroidCharacterRecognition.class, MLkit.class, SavePhotoRecord.class, AnyLineIBAN.class, SelfieKtp.class
     };
     private static final int[] DESCRIPTION_IDS = new int[]{
             R.string.desc_Fast_Adapter, R.string.desc_Permission,
-            R.string.desc_Android_Character_Recognition, R.string.desc_ML_kit, R.string.desc_ML_kit, R.string.desc_ML_kit,
+            R.string.desc_Android_Character_Recognition, R.string.desc_ML_kit,
+            R.string.desc_ML_kit, R.string.desc_ML_kit,R.string.desc_ML_kit,
     };
 
     private SharedPref sharedPref;
@@ -59,7 +63,6 @@ public class MainActivity extends AppCompatActivity
         //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         sharedPref = new SharedPref(this);
         if (sharedPref.loadNightModeState() == true){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_night);
         }else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
@@ -131,9 +134,66 @@ public class MainActivity extends AppCompatActivity
         adapter.setDescriptionIds(DESCRIPTION_IDS);
 
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i;
+                switch (position){
+                    case 0 :  i = new Intent(MainActivity.this,FastAdapter.class);
+                            startActivity(i);
+                            break;
+                    case 1 :   i = new Intent(MainActivity.this, Permission.class);
+                        startActivity(i);
+                        break;
+                    case 2 :   i = new Intent(MainActivity.this, AndroidCharacterRecognition.class);
+                        startActivity(i);
+                        break;
+                    case 3 :  i = new Intent(MainActivity.this,MLkit.class);
+                        startActivity(i);
+                        break;
+                    case 4 :   i = new Intent(MainActivity.this, SavePhotoRecord.class);
+                        startActivity(i);
+                        break;
+                    case 5 :  checkPermissions();
+
+                        break;
+                    case 6: i = new Intent(MainActivity.this, SelfieKtp.class);
+                        startActivity(i);
+                        break;
+                }
+
+            }
+        });
+    }
+    void checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                   100);
+
+        }else {
+            Intent  i = new Intent(MainActivity.this,AnyLineIBAN.class);
+            startActivity(i);
+        }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == 100){
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent  i = new Intent(MainActivity.this,AnyLineIBAN.class);
+                startActivity(i);
+            } else {
+                Toast.makeText(this, "bnla", Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
     private void setButtonFloating() {
         myDialog = new Dialog(this);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -180,12 +240,12 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+   /* @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Class<?> clicked = CLASSES[position];
         startActivity(new Intent(this, clicked));
     }
-
+*/
     public static class MyArrayAdapter extends ArrayAdapter<Class<?>> {
 
         private final Context context;
@@ -216,4 +276,5 @@ public class MainActivity extends AppCompatActivity
             this.descriptionIds = descriptionIds;
         }
     }
+
 }
