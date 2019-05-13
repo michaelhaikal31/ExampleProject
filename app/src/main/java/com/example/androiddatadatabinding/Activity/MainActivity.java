@@ -1,10 +1,8 @@
 package com.example.androiddatadatabinding.Activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -22,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -30,12 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.androiddatadatabinding.R;
-import com.example.androiddatadatabinding.Util.Constant;
 import com.example.androiddatadatabinding.Util.SharedPref;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.InputStreamReader;
 
 import info.androidhive.fontawesome.FontDrawable;
 
@@ -53,16 +45,18 @@ public class MainActivity extends AppCompatActivity
             MLkit.class,
             SavePhotoRecord.class,
             AnyLineIBAN.class,
-            SelfieKtp.class
+            SelfieKtp.class,
+            PrintBloetooth.class,
     };
     private static final int[] DESCRIPTION_IDS = new int[]{
-            R.string.desc_Fast_Adapter,
-            R.string.desc_Permission,
-            R.string.desc_Android_Character_Recognition,
-            R.string.desc_ML_kit,
-            R.string.desc_ML_kit,
-            R.string.desc_ML_kit,
-            R.string.desc_ML_kit,
+            R.string.descFastAdapter,
+            R.string.descPermission,
+            R.string.descACR,
+            R.string.descMLkit,
+            R.string.descCropPhoto,
+            R.string.descOcrAnyLine,
+            R.string.descSelfyCamera,
+            R.string.descPrintBluetootch,
     };
 
     private SharedPref sharedPref;
@@ -70,13 +64,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        sharedPref = new SharedPref(this);
+        //Load Background
+       /* sharedPref = new SharedPref(this);
         if (sharedPref.loadNightModeState() == true) {
             getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_night);
         } else {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
             getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_light);
-        }
+        }*/
 
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
@@ -85,58 +80,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         setInitUI();
         setButtonFloating();
-        checkRootDevice();
 
-    }
-
-    private static boolean isDeviceRooted() {
-        return checkRootMethod1() || checkRootMethod2() || checkRootMethod3();
-    }
-
-    private static boolean checkRootMethod1() {
-        String buildTags = android.os.Build.TAGS;
-        return buildTags != null && buildTags.contains("test-keys");
-    }
-
-    private static boolean checkRootMethod2() {
-        String[] paths = {"/system/app/Superuser.apk", "/sbin/su", "/system/bin/su", "/system/xbin/su",
-                "/data/local/xbin/su", "/data/local/bin/su", "/system/sd/xbin/su", "/system/bin/failsafe/su", "/data/local/su", "/su/bin/su"};
-        for (String path : paths) {
-            if (new File(path).exists()) return true;
-        }
-        return false;
-    }
-
-    private static boolean checkRootMethod3() {
-        Process process = null;
-        try {
-            process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
-            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
-            if (in.readLine() != null)
-                return true;
-            return false;
-        } catch (Throwable t) {
-            return false;
-        } finally {
-            if (process != null) process.destroy();
-        }
-
-    }
-
-    private void checkRootDevice() {
-        if (!isDeviceRooted() == true) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(Constant.MESSAGE);
-            builder.setMessage(Constant.MESSAGE_ROOT);
-            builder.setPositiveButton(Constant.MESSSGE_OK, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    System.exit(0);
-                }
-            });
-            AlertDialog alertDialog = builder.create();
-            alertDialog.show();
-        }
     }
 
     private void setInitUI() {
@@ -172,10 +116,12 @@ public class MainActivity extends AppCompatActivity
                         break;
                     case 5:
                         checkPermissions();
-
                         break;
                     case 6:
                         i = new Intent(MainActivity.this, SelfieKtp.class);
+                        startActivity(i);
+                        break;
+                    case 7 :i = new Intent(MainActivity.this, PrintBloetooth.class);
                         startActivity(i);
                         break;
                     default:

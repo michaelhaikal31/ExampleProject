@@ -55,17 +55,17 @@
             android:id="@+id/view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="#9F020202"
             app:layout_constraintBottom_toTopOf="@+id/border_anyline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/scanview"
-            android:background="@color/transparent_"/>
+            app:layout_constraintTop_toTopOf="@+id/scanview" />
 
         <View
             android:id="@+id/view4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/transparent_"
+            android:background="#9F020202"
             app:layout_constraintBottom_toBottomOf="@+id/border_anyline"
             app:layout_constraintEnd_toEndOf="@+id/scanview"
             app:layout_constraintStart_toEndOf="@+id/border_anyline"
@@ -75,7 +75,7 @@
             android:id="@+id/view3"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/transparent_"
+            android:background="#9F020202"
             app:layout_constraintBottom_toBottomOf="@+id/border_anyline"
             app:layout_constraintEnd_toStartOf="@+id/border_anyline"
             app:layout_constraintStart_toStartOf="@+id/scanview"
@@ -85,11 +85,11 @@
             android:id="@+id/view2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="#9F020202"
             app:layout_constraintBottom_toBottomOf="@+id/scanview"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/border_anyline"
-            android:background="@color/transparent_"/>
+            app:layout_constraintTop_toBottomOf="@+id/border_anyline" />
         <TextView
             android:id="@+id/textView4"
             android:layout_width="216dp"
