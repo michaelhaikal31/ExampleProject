@@ -59,6 +59,10 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="Print Document" />
+        <ListView
+            android:id="@+id/lisview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

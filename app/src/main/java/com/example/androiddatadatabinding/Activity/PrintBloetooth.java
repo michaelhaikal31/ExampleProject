@@ -14,8 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.androiddatadatabinding.R;
@@ -24,10 +26,13 @@ import com.example.androiddatadatabinding.Util.Utils;
 
 import org.opencv.android.OpenCVLoader;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
 import java.util.Set;
@@ -48,9 +53,10 @@ public class PrintBloetooth extends AppCompatActivity {
     byte[] readBuffer;
     int readBufferPosition;
     volatile boolean stopWorker;
-
+ListView listView;
     TextView lblPrinterName;
     EditText textBox;
+    private ArrayList<String> listitem = new ArrayList<>();
 
     public static byte[] SELECT_BIT_IMAGE_MODE = {0x1B, 0x2A, 33, -128, 0};
     BitSet dots;
@@ -67,6 +73,7 @@ public class PrintBloetooth extends AppCompatActivity {
         textBox = (EditText) findViewById(R.id.txtText);
 
         lblPrinterName = (TextView) findViewById(R.id.lblPrinterName);
+
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +117,21 @@ public class PrintBloetooth extends AppCompatActivity {
 
             }
         }
+
+
+
+        listView = findViewById(R.id.lisview);
+        listitem.add("Ref.......: 1901928119929" + "\n");
+        listitem.add("No HP.....: 08961238723" + "\n");
+        listitem.add("Penerima..: 001221234757" + "\n");
+        listitem.add("Nama......: Fulan Setia Putra" + "\n");
+        listitem.add("Nominal...: Rp10.000,-" + "\n");
+        listitem.add("Admin.....: Rp10.500,-" + "\n");
+        listitem.add("Status....: Sukses" + "\n");
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_2, android.R.id.text1, listitem);
+        listView.setAdapter(adapter);
+
     }
 
     void FindBluetoothDevice() {
@@ -243,14 +265,21 @@ public class PrintBloetooth extends AppCompatActivity {
             outputStream.write(PrinterCommands.FEED_LINE);
 
             StringBuilder contentSb	= new StringBuilder();
-            contentSb.append("Ref.......: 1901928119929" + "\n");
+           /* contentSb.append("Ref.......: 1901928119929" + "\n");
             contentSb.append("No HP.....: 08961238723" + "\n");
             contentSb.append("Penerima..: 001221234757" + "\n");
             contentSb.append("Nama......: Fulan Setia Putra" + "\n");
             contentSb.append("Nominal...: Rp10.000,-" + "\n");
             contentSb.append("Admin.....: Rp10.500,-" + "\n");
-            contentSb.append("Status....: Sukses" + "\n");
-            outputStream.write(contentSb.toString().getBytes());
+            contentSb.append("Status....: Sukses" + "\n");*/
+
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            DataOutputStream oos= new DataOutputStream(bos);
+            for(String elemt : listitem){
+                oos.writeUTF(elemt);
+            }
+            outputStream.write(bos.toByteArray());
+            //outputStream.write(contentSb.toString().getBytes());
             outputStream.write(PrinterCommands.FEED_LINE);
 
             outputStream.write(PrinterCommands.ESC_ALIGN_CENTER );

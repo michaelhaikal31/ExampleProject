@@ -31,5 +31,5 @@
         <item>Left</item>
         <item>Bottom</item>
     </string-array>
-    <string name="text_recod_ktp">Silahkan Letakkan Kartu KTP anda di dalam Kotak yang tersedia</string>
+    <string name="text_recod_ktp">Silahkan Letakan Kartu KTP anda di dalam Kotak yang tersedia</string>
 </resources>

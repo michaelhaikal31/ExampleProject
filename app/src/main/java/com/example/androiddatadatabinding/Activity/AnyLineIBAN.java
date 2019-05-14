@@ -80,7 +80,13 @@ public class AnyLineIBAN extends AppCompatActivity implements AnylineDebugListen
 
 //        linearLayout.setVisibility(LinearLayout.INVISIBLE);
         init();
-
+        TextView txtclose = (TextView)findViewById(R.id.txtclose);
+        txtclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     private void changeStatusBar() {
