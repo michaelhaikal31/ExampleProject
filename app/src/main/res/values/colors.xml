@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#1976D2</color>
     <color name="colorAccent">#D81B60</color>
     <color name="backgroundcolor">#fcfcfc</color>
-    <color name="cardbackground">#ffffff</color>
+    <color name="cardbackground">#FFFFFF</color>
     <color name="textcolor">#808080</color>
     <color name="tintcolor">#ffffff</color>
     <color name="buttoncolor">#2196F3</color>

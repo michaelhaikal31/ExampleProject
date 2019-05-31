@@ -16,6 +16,7 @@
     <string name="descCropPhoto">Demo Crop Photo with view</string>
     <string name="descSelfyCamera">Demo Selfy Camera with face Recognition(MLkit)</string>
     <string name="descPrintBluetootch">Demo Print struct in printer bluetootch</string>
+    <string name="descKotlinExperience">Demo TuToRial KotlinExperience</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

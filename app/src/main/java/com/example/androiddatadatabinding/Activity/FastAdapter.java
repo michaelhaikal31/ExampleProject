@@ -23,7 +23,7 @@ public class FastAdapter extends AppCompatActivity implements ActionBar.OnNaviga
     private RecyclerView recyclerView;
     Context context;
     private LayoutAnimationController controller;
-    List<mango> mangos = new ArrayList<>();
+    public static List<mango> mangos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

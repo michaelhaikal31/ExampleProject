@@ -2,9 +2,12 @@ package com.example.androiddatadatabinding.Activity;
 
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.CancellationSignal;
+import android.support.annotation.RequiresApi;
 
 
+@RequiresApi(api = Build.VERSION_CODES.M)
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
     private Context context;
     public FingerprintHandler(Context context){

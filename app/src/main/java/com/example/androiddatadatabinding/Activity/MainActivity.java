@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity
             AnyLineIBAN.class,
             SelfieKtp.class,
             PrintBloetooth.class,
+            KotlinExperience.class
     };
     private static final int[] DESCRIPTION_IDS = new int[]{
             R.string.descFastAdapter,
@@ -57,22 +58,14 @@ public class MainActivity extends AppCompatActivity
             R.string.descOcrAnyLine,
             R.string.descSelfyCamera,
             R.string.descPrintBluetootch,
+            R.string.descKotlinExperience
+
     };
 
     private SharedPref sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        //Load Background
-       /* sharedPref = new SharedPref(this);
-        if (sharedPref.loadNightModeState() == true) {
-            getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_night);
-        } else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-            getWindow().setBackgroundDrawableResource(R.drawable.ic_cornered_stairs_light);
-        }*/
-
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_main);
@@ -122,6 +115,9 @@ public class MainActivity extends AppCompatActivity
                         startActivity(i);
                         break;
                     case 7 :i = new Intent(MainActivity.this, PrintBloetooth.class);
+                        startActivity(i);
+                        break;
+                    case 8 :i = new Intent(MainActivity.this, KotlinExperience.class);
                         startActivity(i);
                         break;
                     default:
