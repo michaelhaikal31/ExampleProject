@@ -26,6 +26,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.androiddatadatabinding.KotlinExam.view.Activity.KotlinSport;
 import com.example.androiddatadatabinding.R;
 import com.example.androiddatadatabinding.Util.SharedPref;
 
@@ -40,10 +41,10 @@ public class MainActivity extends AppCompatActivity
 
     private static final Class<?>[] CLASSES = new Class<?>[]{
             FastAdapter.class,
-            Permission.class,
+            KotlinSport.class,
             AndroidCharacterRecognition.class,
             MLkit.class,
-            SavePhotoRecord.class,
+            Splasing.class,
             AnyLineIBAN.class,
             SelfieKtp.class,
             PrintBloetooth.class,
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
                         startActivity(i);
                         break;
                     case 1:
-                        i = new Intent(MainActivity.this, Permission.class);
+                        i = new Intent(MainActivity.this, KotlinSport.class);
                         startActivity(i);
                         break;
                     case 2:
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity
                         startActivity(i);
                         break;
                     case 4:
-                        i = new Intent(MainActivity.this, SavePhotoRecord.class);
+                        i = new Intent(MainActivity.this, Splasing.class);
                         startActivity(i);
                         break;
                     case 5:

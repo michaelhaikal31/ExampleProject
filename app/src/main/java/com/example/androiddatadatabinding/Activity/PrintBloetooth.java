@@ -26,15 +26,11 @@ import com.example.androiddatadatabinding.Util.Utils;
 
 import org.opencv.android.OpenCVLoader;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.BitSet;
-import java.util.Calendar;
 import java.util.Set;
 import java.util.UUID;
 
@@ -251,50 +247,50 @@ ListView listView;
             lblPrinterName.setText("Printing Text...");
 
             Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-                    R.drawable.logolakupanda);
+                    R.drawable.logo);
             byte[] command = Utils.decodeBitmap(bmp);
             outputStream.write(PrinterCommands.ESC_ALIGN_CENTER);
             outputStream.write(command);
             outputStream.write(PrinterCommands.SET_LINE_SPACING_24);
 
-            outputStream.write(PrinterCommands.ESC_ALIGN_LEFT );
-            StringBuilder contentSbheader	= new StringBuilder();
-            contentSbheader.append("Agen......: Fathurrohman Haikal" + "\n");
-            contentSbheader.append("ID Agen...: Haikal_Ganteng" + "\n");
-            outputStream.write(contentSbheader.toString().getBytes());
-            outputStream.write(PrinterCommands.FEED_LINE);
-
-            StringBuilder contentSb	= new StringBuilder();
-           /* contentSb.append("Ref.......: 1901928119929" + "\n");
-            contentSb.append("No HP.....: 08961238723" + "\n");
-            contentSb.append("Penerima..: 001221234757" + "\n");
-            contentSb.append("Nama......: Fulan Setia Putra" + "\n");
-            contentSb.append("Nominal...: Rp10.000,-" + "\n");
-            contentSb.append("Admin.....: Rp10.500,-" + "\n");
-            contentSb.append("Status....: Sukses" + "\n");*/
-
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            DataOutputStream oos= new DataOutputStream(bos);
-            for(String elemt : listitem){
-                oos.writeUTF(elemt);
-            }
-            outputStream.write(bos.toByteArray());
-            //outputStream.write(contentSb.toString().getBytes());
-            outputStream.write(PrinterCommands.FEED_LINE);
-
-            outputStream.write(PrinterCommands.ESC_ALIGN_CENTER );
-
-            Calendar calendar = Calendar.getInstance();
-            SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
-            String strTime =  mdformat.format(calendar.getTime());
-            SimpleDateFormat mhformat = new SimpleDateFormat("yyyy / MM / dd ");
-            String strDate = mhformat.format(calendar.getTime());
-
-            StringBuilder contentSbFooter	= new StringBuilder();
-            contentSbFooter.append("Simpan Resi ini Sebagai Bukti Transaksi Yang Sah" + "\n");
-            contentSbFooter.append("Tgl Cetak : "+strDate+" "+strTime+"\n");
-            outputStream.write(contentSbFooter.toString().getBytes());
-            outputStream.write(PrinterCommands.FEED_LINE);
+//            outputStream.write(PrinterCommands.ESC_ALIGN_LEFT );
+//            StringBuilder contentSbheader	= new StringBuilder();
+//            contentSbheader.append("Agen......: Fathurrohman Haikal" + "\n");
+//            contentSbheader.append("ID Agen...: Haikal_Ganteng" + "\n");
+//            outputStream.write(contentSbheader.toString().getBytes());
+//            outputStream.write(PrinterCommands.FEED_LINE);
+//
+//            StringBuilder contentSb	= new StringBuilder();
+//           /* contentSb.append("Ref.......: 1901928119929" + "\n");
+//            contentSb.append("No HP.....: 08961238723" + "\n");
+//            contentSb.append("Penerima..: 001221234757" + "\n");
+//            contentSb.append("Nama......: Fulan Setia Putra" + "\n");
+//            contentSb.append("Nominal...: Rp10.000,-" + "\n");
+//            contentSb.append("Admin.....: Rp10.500,-" + "\n");
+//            contentSb.append("Status....: Sukses" + "\n");*/
+//
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            DataOutputStream oos= new DataOutputStream(bos);
+//            for(String elemt : listitem){
+//                oos.writeUTF(elemt);
+//            }
+//            outputStream.write(bos.toByteArray());
+//            //outputStream.write(contentSb.toString().getBytes());
+//            outputStream.write(PrinterCommands.FEED_LINE);
+//
+//            outputStream.write(PrinterCommands.ESC_ALIGN_CENTER );
+//
+//            Calendar calendar = Calendar.getInstance();
+//            SimpleDateFormat mdformat = new SimpleDateFormat("HH:mm:ss");
+//            String strTime =  mdformat.format(calendar.getTime());
+//            SimpleDateFormat mhformat = new SimpleDateFormat("yyyy / MM / dd ");
+//            String strDate = mhformat.format(calendar.getTime());
+//
+//            StringBuilder contentSbFooter	= new StringBuilder();
+//            contentSbFooter.append("Simpan Resi ini Sebagai Bukti Transaksi Yang Sah" + "\n");
+//            contentSbFooter.append("Tgl Cetak : "+strDate+" "+strTime+"\n");
+//            outputStream.write(contentSbFooter.toString().getBytes());
+//            outputStream.write(PrinterCommands.FEED_LINE);
 
         } catch (Exception ex) {
             ex.printStackTrace();

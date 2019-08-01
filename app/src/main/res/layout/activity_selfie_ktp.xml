@@ -30,12 +30,10 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="450dp"
-        app:layout_constraintBottom_toBottomOf="@+id/SelfiSurfaceView"
         app:layout_constraintEnd_toEndOf="@+id/graphic_overlay"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/graphic_overlay"
         app:layout_constraintTop_toTopOf="@+id/graphic_overlay"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_ic_scaner_face_02"
         tools:ignore="VectorDrawableCompat" />
 

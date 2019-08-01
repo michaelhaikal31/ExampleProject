@@ -5,7 +5,7 @@
     <color name="colorAccent">#35c9ba</color>
     <color name="backgroundcolor">#343443</color>
     <color name="cardbackground">#999fa9</color>
-    <color name="textcolor">#dcdcea</color>
-    <color name="tintcolor">#834F4F</color>
+    <color name="colorPrimarytext">#dcdcea</color>
+    <color name="colorScondarytext">#834F4F</color>
     <color name="buttoncolor">#2196F3</color>
 </resources>

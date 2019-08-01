@@ -23,8 +23,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.KotlinExperience"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Activity.Splasing"></activity>
+        <activity android:name=".KotlinExam.view.Activity.KotlinSport" />
+        <activity
+            android:name=".Activity.KotlinExperience"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.PrintBloetooth" />
         <activity android:name=".Util.DeviceList" />
         <activity
@@ -37,7 +40,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.SavePhotoRecord" />
         <activity android:name=".Activity.MLkit" />
 
         <meta-data
